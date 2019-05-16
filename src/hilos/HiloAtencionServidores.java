@@ -22,7 +22,7 @@ private ServidorBD server;
 			try {
 				Socket socket;
 				socket = server.getSocketServer().accept();
-				System.out.println("CHEQUEO : Se ha establecido una conexion con el Servidor de Horse_Race");
+				System.out.println("CHEQUEO : Se ha establecido una conexion con el Servidor de BD");
 				DataInputStream in = new DataInputStream(socket.getInputStream());
 				DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 				String mensaje = in.readUTF();

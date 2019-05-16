@@ -74,46 +74,132 @@ public class HiloClientHandler extends Thread {
 				if(httpQueryString.contains("/?usr=")) {
 					System.out.println("Get method processed");
 					String[] data = httpQueryString.split("&");
-					//CONDICIONAL FOR PASSWORD HERE
 					String[] usr = data[0].split("=");
-					String returnMessage = server.askForData(usr[1]);
-					String[] lista = returnMessage.split("\n");
-					StringBuilder responseBuffer = new StringBuilder();
-					responseBuffer
-					.append("<html>")
-					.append("<head>")
-					.append("<style>")
-					.append("body{")
-					.append("	background-image: url(\"http://agar.io/img/1200x630.png\");")
-					.append("	background-size: cover;")
-					.append("	background-repeat: no-repeat;")
-					.append("}")
-					.append("table,td{")
-					.append("	background-color: white;")
-					.append("	width: 100px;")
-					.append("	border: 1px solid black;")
-					.append("	table-layout: fixed;")
-					.append("}")
-					.append("tr{")
-					.append("	border: 2px solid black;")
-					.append("}")
-					.append("</style>")
-					.append("<title>Resultados Usuario Correspondiente</title>")
-					.append("</head>")
-					.append("<body>")
-					.append("<h1>Resultados</h1>")
-					.append("<table>")
-					.append("<tr>")
-					.append("<td><strong>FECHA</strong></td>")
-					.append("<td><strong>USUARIO</strong></td>")
-					.append("<td><strong>PUNTAJE</strong></td>")
-					.append("<td><strong>GANO?</strong></td>");
-					agregarlista(lista, responseBuffer, usr[1].trim());
-					responseBuffer.append("<body>")
-					.append("<table>")
-					.append("<body>")
-					.append("</html>");
-					sendResponse(socket, 200, responseBuffer.toString());
+					String[] pss = data[1].split("=");
+					//CONDICIONAL FOR PASSWORD HERE
+					if(server.auntenticar(usr[1], pss[1]).equals("true")) {
+						String returnMessage = server.askForData(usr[1]);
+						String[] lista = returnMessage.split("\n");
+						StringBuilder responseBuffer = new StringBuilder();
+						responseBuffer
+						.append("<html>")
+						.append("<head>")
+						.append("<style>")
+						.append("body{")
+						.append("	background-image: url(\"http://agar.io/img/1200x630.png\");")
+						.append("	background-size: cover;")
+						.append("	background-repeat: no-repeat;")
+						.append("}")
+						.append("table,td{")
+						.append("	background-color: white;")
+						.append("	width: 100px;")
+						.append("	border: 1px solid black;")
+						.append("	table-layout: fixed;")
+						.append("}")
+						.append("h1{")
+						.append("	background-color: white;")
+						.append("	border: 1px solid black;")
+						.append("}")
+						.append("tr{")
+						.append("	border: 2px solid black;")
+						.append("}")
+						.append("</style>")
+						.append("<title>Resultados Usuario Correspondiente</title>")
+						.append("</head>")
+						.append("<body>")
+						.append("<h1>Resultados</h1>")
+						.append("<table>")
+						.append("<tr>")
+						.append("<td><strong>FECHA</strong></td>")
+						.append("<td><strong>USUARIO</strong></td>")
+						.append("<td><strong>PUNTAJE</strong></td>")
+						.append("<td><strong>GANO?</strong></td>");
+						agregarlista(lista, responseBuffer, usr[1].trim());
+						responseBuffer.append("<body>")
+						.append("<table>")
+						.append("<body>")
+						.append("</html>");
+						sendResponse(socket, 200, responseBuffer.toString());
+					} else if (server.auntenticar(usr[1], pss[1]).equals("false")){
+						StringBuilder responseBuffer = new StringBuilder();
+						responseBuffer
+						.append("<html>")
+						.append("<head>")
+						.append("<style>")
+						.append("body{")
+						.append("	background-image: url(\"http://agar.io/img/1200x630.png\");")
+						.append("	background-size: cover;")
+						.append("	background-repeat: no-repeat;")
+						.append("}")
+						.append("</style>")
+						.append("<title>ERROR</title>")
+						.append("</head>")
+						.append("<body>")
+						.append("<h1>Contraseña erronea.</h1>")
+						.append("<body>")
+						.append("</html>");
+						sendResponse(socket, 200, responseBuffer.toString());
+					} else {
+						StringBuilder responseBuffer = new StringBuilder();
+						responseBuffer
+						.append("<html>")
+						.append("<head>")
+						.append("<style>")
+						.append("body{")
+						.append("	background-image: url(\"http://agar.io/img/1200x630.png\");")
+						.append("	background-size: cover;")
+						.append("	background-repeat: no-repeat;")
+						.append("}")
+						.append("</style>")
+						.append("<title>ERROR</title>")
+						.append("</head>")
+						.append("<body>")
+						.append("<h1>Este usuario no existe.</h1>")
+						.append("<body>")
+						.append("</html>");
+						sendResponse(socket, 200, responseBuffer.toString());
+					}
+					
+					
+					
+//					String returnMessage = server.askForData(usr[1]);
+//					String[] lista = returnMessage.split("\n");
+//					StringBuilder responseBuffer = new StringBuilder();
+//					responseBuffer
+//					.append("<html>")
+//					.append("<head>")
+//					.append("<style>")
+//					.append("body{")
+//					.append("	background-image: url(\"http://agar.io/img/1200x630.png\");")
+//					.append("	background-size: cover;")
+//					.append("	background-repeat: no-repeat;")
+//					.append("}")
+//					.append("table,td{")
+//					.append("	background-color: white;")
+//					.append("	width: 100px;")
+//					.append("	border: 1px solid black;")
+//					.append("	table-layout: fixed;")
+//					.append("}")
+//					.append("tr{")
+//					.append("	border: 2px solid black;")
+//					.append("}")
+//					.append("</style>")
+//					.append("<title>Resultados Usuario Correspondiente</title>")
+//					.append("</head>")
+//					.append("<body>")
+//					.append("<h1>Resultados</h1>")
+//					.append("<table>")
+//					.append("<tr>")
+//					.append("<td><strong>FECHA</strong></td>")
+//					.append("<td><strong>USUARIO</strong></td>")
+//					.append("<td><strong>PUNTAJE</strong></td>")
+//					.append("<td><strong>GANO?</strong></td>");
+//					agregarlista(lista, responseBuffer, usr[1].trim());
+//					responseBuffer.append("<body>")
+//					.append("<table>")
+//					.append("<body>")
+//					.append("</html>");
+//					sendResponse(socket, 200, responseBuffer.toString());
 					
 					
 					
