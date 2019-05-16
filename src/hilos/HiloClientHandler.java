@@ -44,7 +44,7 @@ public class HiloClientHandler extends Thread {
 				if (httpQueryString.equals("/")) {
 					StringBuilder responseBuffer = new StringBuilder();
 					String str = "";
-					BufferedReader buf = new BufferedReader(new FileReader("web/AppWeb/javascr.html"));
+					BufferedReader buf = new BufferedReader(new FileReader("web/agarweb.html"));
 					while ((str = buf.readLine()) != null) {
 						responseBuffer.append(str);
 					}
@@ -52,24 +52,70 @@ public class HiloClientHandler extends Thread {
 					buf.close();
 				}
 				// permite obtener el dato ingresado en el submit
-				if (httpQueryString.contains("/?ced=")) {
+//				if (httpQueryString.contains("/?ced=")) {
+//					System.out.println("Get method processed");
+//					String[] response = httpQueryString.split("=");
+//					String mensajeObtenido = server.askForData(response[1]);
+//					String[] lista = mensajeObtenido.split("\n");
+//					StringBuilder responseBuffer = new StringBuilder();
+//					responseBuffer.append("<html>").append("<head>").append("<style>").append("body{").append(
+//							"	background-image: url(\"http://www.mascotahogar.com/Imagenes/wallpaper-de-un-caballo-blanco.jpg\");")
+//							.append("}").append("</style>").append("<title>Informacion Cedula Correspondiente</title>")
+//							.append("</head>").append("<body>").append("<h1>Listado de Carreras Realizadas</h1>")
+//							.append("<table>").append("<tr>").append("<td><strong>CEDULA</strong></td>")
+//							.append("<td><strong>CABALLO</strong></td>").append("<td><strong>MONTO $</strong></td>")
+//							.append("<td><strong>GANO?</strong></td>");
+//					agregarlista(lista, responseBuffer, response[1].trim());
+//					responseBuffer.append("<body>").append("<table>").append("<body>").append("</html>");
+//
+//					sendResponse(socket, 200, responseBuffer.toString());
+//
+//				}
+				if(httpQueryString.contains("/?usr=")) {
 					System.out.println("Get method processed");
-					String[] response = httpQueryString.split("=");
-					String mensajeObtenido = server.askForData(response[1]);
-					String[] lista = mensajeObtenido.split("\n");
+					String[] data = httpQueryString.split("&");
+					//CONDICIONAL FOR PASSWORD HERE
+					String[] usr = data[0].split("=");
+					String returnMessage = server.askForData(usr[1]);
+					String[] lista = returnMessage.split("\n");
 					StringBuilder responseBuffer = new StringBuilder();
-					responseBuffer.append("<html>").append("<head>").append("<style>").append("body{").append(
-							"	background-image: url(\"http://www.mascotahogar.com/Imagenes/wallpaper-de-un-caballo-blanco.jpg\");")
-							.append("}").append("</style>").append("<title>Informacion Cedula Correspondiente</title>")
-							.append("</head>").append("<body>").append("<h1>Listado de Carreras Realizadas</h1>")
-							.append("<table>").append("<tr>").append("<td><strong>CEDULA</strong></td>")
-							.append("<td><strong>CABALLO</strong></td>").append("<td><strong>MONTO $</strong></td>")
-							.append("<td><strong>GANO?</strong></td>");
-					agregarlista(lista, responseBuffer, response[1].trim());
-					responseBuffer.append("<body>").append("<table>").append("<body>").append("</html>");
-
+					responseBuffer
+					.append("<html>")
+					.append("<head>")
+					.append("<style>")
+					.append("body{")
+					.append("	background-image: url(\"http://agar.io/img/1200x630.png\");")
+					.append("}")
+					.append("table,td{")
+					.append("	background-color: white;")
+					.append("	width: 100px;")
+					.append("	border: 1px solid black;")
+					.append("	table-layout: fixed;")
+					.append("}")
+					.append("tr{")
+					.append("	border: 2px solid black;")
+					.append("}")
+					.append("</style>")
+					.append("<title>Resultados Usuario Correspondiente</title>")
+					.append("</head>")
+					.append("<body>")
+					.append("<h1>Resultados</h1>")
+					.append("<table>")
+					.append("<tr>")
+					.append("<td><strong>FECHA</strong></td>")
+					.append("<td><strong>USUARIO</strong></td>")
+					.append("<td><strong>PUNTAJE</strong></td>")
+					.append("<td><strong>GANO?</strong></td>");
+					agregarlista(lista, responseBuffer, usr[1].trim());
+					responseBuffer.append("<body>")
+					.append("<table>")
+					.append("<body>")
+					.append("</html>");
 					sendResponse(socket, 200, responseBuffer.toString());
-
+					
+					
+					
+					
 				}
 			} else {
 				System.out.println("The HTTP method is not recognized");
@@ -83,17 +129,55 @@ public class HiloClientHandler extends Thread {
 
 	}
 
-	private void agregarlista(String[] lista, StringBuilder responseBuffer, String cedula) {
+	private void agregarlista(String[] lista, StringBuilder responseBuffer, String usr) {
 		for (int i = 0; i < lista.length; i++) {
 			System.out.println("CHEQUEO LISTA :" + lista[i]);
-			if (lista[i].split(",")[0].compareToIgnoreCase(cedula) == 0) {
+			if(lista[i].contains(usr)) {
+				String temp[] = lista[i].split(";");
 				responseBuffer.append("<tr>");
-				responseBuffer.append("<td>" + lista[i].split(",")[0] + "</td>");
-				responseBuffer.append("<td>" + lista[i].split(",")[1] + "</td>");
-				responseBuffer.append("<td>" + lista[i].split(",")[2] + "</td>");
-				responseBuffer.append("<td>" + lista[i].split(",")[3] + "</td>");
+				responseBuffer.append("<td>"+temp[0]+"</td>");
+				responseBuffer.append("<td>"+temp[1]+"</td>");
+				responseBuffer.append("<td>"+temp[2]+"</td>");
+				responseBuffer.append("<td>"+temp[3]+"</td>");
 				responseBuffer.append("<tr>");
+				responseBuffer.append("<td> </td>");
+				responseBuffer.append("<td>"+temp[4]+"</td>");
+				responseBuffer.append("<td>"+temp[5]+"</td>");
+				responseBuffer.append("<td>"+temp[6]+"</td>");
+				responseBuffer.append("<tr>");
+				if(temp.length>7) {
+					responseBuffer.append("<td> </td>");
+					responseBuffer.append("<td>"+temp[7]+"</td>");
+					responseBuffer.append("<td>"+temp[8]+"</td>");
+					responseBuffer.append("<td>"+temp[9]+"</td>");
+					responseBuffer.append("<tr>");
+				}
+				if(temp.length>10) {
+					responseBuffer.append("<td> </td>");
+					responseBuffer.append("<td>"+temp[10]+"</td>");
+					responseBuffer.append("<td>"+temp[11]+"</td>");
+					responseBuffer.append("<td>"+temp[12]+"</td>");
+					responseBuffer.append("<tr>");
+				}
+				if(temp.length>13) {
+					responseBuffer.append("<td> </td>");
+					responseBuffer.append("<td>"+temp[13]+"</td>");
+					responseBuffer.append("<td>"+temp[14]+"</td>");
+					responseBuffer.append("<td>"+temp[15]+"</td>");
+					responseBuffer.append("<tr>");
+				}
+				responseBuffer.append("<br>");
+				responseBuffer.append("<table>");
+				
 			}
+//			if (lista[i].split(",")[0].compareToIgnoreCase(cedula) == 0) {
+//				responseBuffer.append("<tr>");
+//				responseBuffer.append("<td>" + lista[i].split(",")[0] + "</td>");
+//				responseBuffer.append("<td>" + lista[i].split(",")[1] + "</td>");
+//				responseBuffer.append("<td>" + lista[i].split(",")[2] + "</td>");
+//				responseBuffer.append("<td>" + lista[i].split(",")[3] + "</td>");
+//				responseBuffer.append("<tr>");
+//			}
 
 		}
 

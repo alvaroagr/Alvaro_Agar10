@@ -1,5 +1,4 @@
 package hilos;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -7,6 +6,7 @@ import java.net.Socket;
 import conexion.ServidorScore;
 
 public class HiloDespliegueAppWeb extends Thread {
+	
 	public ServidorScore server;
 
 	public HiloDespliegueAppWeb(ServidorScore server) {
@@ -15,6 +15,7 @@ public class HiloDespliegueAppWeb extends Thread {
 	}
 
 	public void run() {
+		
 		while (server.isWebServiceOn()) {
 			System.out.println(":::Web Server Started:::");
 			ServerSocket serverSocket = server.getServerSocket();
