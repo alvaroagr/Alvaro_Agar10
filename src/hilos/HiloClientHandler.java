@@ -258,15 +258,6 @@ public class HiloClientHandler extends Thread {
 				responseBuffer.append("<table>");
 				
 			}
-//			if (lista[i].split(",")[0].compareToIgnoreCase(cedula) == 0) {
-//				responseBuffer.append("<tr>");
-//				responseBuffer.append("<td>" + lista[i].split(",")[0] + "</td>");
-//				responseBuffer.append("<td>" + lista[i].split(",")[1] + "</td>");
-//				responseBuffer.append("<td>" + lista[i].split(",")[2] + "</td>");
-//				responseBuffer.append("<td>" + lista[i].split(",")[3] + "</td>");
-//				responseBuffer.append("<tr>");
-//			}
-
 		}
 
 	}
