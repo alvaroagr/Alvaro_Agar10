@@ -13,4 +13,4 @@ Para revisar, inicie las clases: <b> ServidorBD</b> y <b>ServidorScore</b>
 <br>eee　　　　　　　　5555
 <br>fff　　　　　　　　6666
 
-Visitar -> localhost:7000 para revisar. Gracias.
+Visitar -> <b>localhost:7000</b> para revisar. Gracias.
