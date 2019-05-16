@@ -85,6 +85,8 @@ public class HiloClientHandler extends Thread {
 					.append("<style>")
 					.append("body{")
 					.append("	background-image: url(\"http://agar.io/img/1200x630.png\");")
+					.append("	background-size: cover;")
+					.append("	background-repeat: no-repeat;")
 					.append("}")
 					.append("table,td{")
 					.append("	background-color: white;")
