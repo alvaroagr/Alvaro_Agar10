@@ -1,7 +1,15 @@
-# Alvaro_Agar10
-Alvaro Gómez Rey.
-<br>Manuel Quintero
-<br>Christian Lopez
+# Agar.io Clone
+Project developed for the **Redes de computadores** class from 2019-1 at **Universidad Icesi** .
+
+## People Involved
+### Developers
+- Alvaro A. Gómez Rey
+- Manuel Quintero
+- Christian Lopez
+### Instructor
+- Christian Camilo Urcuqui López
+
+## Instructions for the instructor
 
 Para revisar, inicie las clases: <b> ServidorBD</b> y <b>ServidorScore</b>
 
